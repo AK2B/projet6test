@@ -1,0 +1,13 @@
+.pmbColor {
+	background: rgb(36,121,9);
+background: linear-gradient(90deg, rgba(36,121,9,1) 0%, rgba(6,212,2,1) 100%);
+}
+
+.retour {
+   float:right;
+   }
+   
+   
+input {
+	border-radius: 5px; 
+}

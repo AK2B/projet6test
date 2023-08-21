@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay My Buddy - <?= $title ?></title>
+<link rel="icon" type="image/png" th:href="@{favIcon.png}" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+		<div class="container-fluid">
+			<a class="navbar-brand pmbColor p-3 me-auto text-white rounded"
+				href="home">Pay My Buddy</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+				aria-controls="navbarColor03" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-flex flex-row-reverse"
+				id="navbarColor03">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" href="home">Home
+							<span class="visually-hidden">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="transfer">Transfer</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="contact">Contact</a>
+					</li>
+
+				</ul>
+
+			</div>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Log off" />
+			</form>
+		</div>
+	</nav>
+	<main class="container mt-3">
+
+		<section>
+			<h3>
+				Send Money
+				<button class="retour bg-info rounded btn btn-link" type="button" data-toggle="collapse"
+				data-target="#relationList" aria-expanded="false"
+				aria-controls="relationList">Add Connection</button>
+			</h3>
+			<div id="relationList" class="collapse">
+			<form class="retour " action="/add-relation" method="post">
+				<label for="email"></label> <input
+					placeholder="Enter Email of the Friend" type="email"
+					id="friendEmail" name="friendEmail" required>
+
+				<!-- Other fields for Relation if needed -->
+
+				<button type="submit">Add Relation</button>
+			</form>
+			<br>
+
+			
+				<div class="list-group">
+					<div th:each="relation : ${relations}" class="list-group-item">
+						<p class="mb-0">
+							<strong>Relation ID:</strong> <span
+								th:text="${relation.friendId}"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div th:if="${relations.isEmpty()}">
+				<p>No relations found for the current user.</p>
+			</div>
+
+			<div class="py-3 my-5" style="background-color: #eee;">
+				<form action="/transactions/create" method="post">
+					<span class="d-flex justify-content-center"> <input
+						type="email" id="recipientEmail" name="recipientEmail"
+						placeholder="Search user by email" required /> <input
+						class="mx-3" type="number" id="amount" name="amount" step="0.01"
+						required />
+
+						<button class="pmbColor rounded text-white px-5" type="submit">Pay</button>
+						<br>
+					</span>
+
+					<p class="d-flex justify-content-center mt-3">
+						<input class="mx-3" type="checkbox" name="confirm" required>
+						I confirm this transaction
+					</p>
+
+				</form>
+			</div>
+		</section>
+
+
+		<section>
+
+			<h3>My Transactions</h3>
+			<div class="py-5" style="background-color: #eee;">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Sender ID</th>
+							<th>Amount</th>
+							<th>Status</th>
+							<th>Transaction Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="transaction : ${transactions}">
+							<td th:text="${transaction.senderId}"></td>
+							<td th:text="${transaction.amount}"></td>
+							<td th:text="${transaction.status}"></td>
+							<td th:text="${transaction.transaction_date}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+	</main>
+	<!-- Inclure les scripts jQuery et Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+</body>
+</html>

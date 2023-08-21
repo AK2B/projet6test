@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay My Buddy - <?= $title ?></title>
+<link rel="icon" type="image/png" th:href= "@{favIcon.png}" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<link th:href= "@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+  <div class="container-fluid ">
+    <a class="navbar-brand pmbColor p-3 me-auto text-white rounded" href="home">Pay My Buddy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarColor03">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="home">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+ 
+        <li class="nav-item">
+          <a class="nav-link" href="contact">Contact</a>
+        </li>
+       
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+    
+    <main class="contener mx-auto my-3" style="max-width:600px">
+     
+     <!-- Default form contact -->
+<form class="text-center border border-dark rounded p-5 bg-light" action="#!">
+
+    <p class="h4 mb-4">Contact us</p>
+
+    <!-- Name -->
+    <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="Name">
+
+    <!-- Email -->
+    <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+    <!-- Subject -->
+    <label>Subject</label>
+    <select class="browser-default custom-select mb-4">
+        <option value="" disabled>Choose option</option>
+        <option value="1" selected>Feedback</option>
+        <option value="2">Report a bug</option>
+        <option value="3">Feature request</option>
+        <option value="4">Feature request</option>
+    </select>
+
+    <!-- Message -->
+    <div class="form-group">
+        <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Message"></textarea>
+    </div>
+
+    <!-- Copy -->
+    <div class="custom-control custom-checkbox mb-4">
+        <input type="checkbox" class="custom-control-input" id="defaultContactFormCopy">
+        <label class="custom-control-label" for="defaultContactFormCopy">Send me a copy of this message</label>
+    </div>
+
+    <!-- Send button -->
+    <button class="btn btn-info btn-block w-100" type="submit">Send</button>
+
+</form>
+<!-- Default form contact -->
+       
+       
+    </main>
+    <!-- Footer -->
+    <footer class="text-center fixed-bottom gradRbTop">
+        <!-- Copyright -->
+        <div class="text-center p-1" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright : Pay My Buddy
+        </div>
+    </footer>
+   		<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+    <script type="" src=""></script>
+</body>
+    
+    
+   
+  
+</html>

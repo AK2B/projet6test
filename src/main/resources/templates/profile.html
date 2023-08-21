@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay My Buddy - <?= $title ?></title>
+<link rel="icon" type="image/png" th:href="@{favIcon.png}" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+		<div class="container-fluid ">
+			<a class="navbar-brand pmbColor p-3 me-auto text-white rounded"
+				href="home">Pay My Buddy</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+				aria-controls="navbarColor03" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-flex flex-row-reverse"
+				id="navbarColor03">
+				<ul class="navbar-nav ">
+					<li class="nav-item"><a class="nav-link active" href="home">Home
+							<span class="visually-hidden">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="transfer">Transfer</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="contact">Contact</a>
+					</li>
+
+				</ul>
+
+			</div>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" />
+			</form>
+
+		</div>
+	</nav>
+
+
+	<section class="mh-100" style="background-color: #eee;">
+		<div class="container py-5 h-100">
+			<div class="row">
+				<div class="col">
+					<nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+						<ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">User
+								Profile</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="card mb-4">
+						<div class="card-body text-center">
+							<img
+								src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+								alt="avatar" class="rounded-circle img-fluid"
+								style="width: 150px;">
+							<h5 class="my-3">
+								<span th:if="${firstName != null and lastName != null}"
+									th:text="${firstName + ' ' + lastName}"></span> <span
+									th:unless="${firstName != null and lastName != null}"
+									th:text="${#authentication.principal.attributes.name}"></span>
+							</h5>
+
+							<button type="button" class="btn btn-outline-dark w-100"
+								data-mdb-ripple-color="dark" style="z-index: 1;">Edit
+								profile</button>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-lg-8">
+					<span th:remove="tag" sec:authorize="isAuthenticated()"> </span>
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Last Name</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">
+										<span th:if="${lastName != null}" th:text="${lastName}"></span>
+										<span th:unless="${lastName != null}"
+											th:text="${#authentication.principal.attributes.family_name}"></span>
+
+									</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">First Name</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">
+										<span th:if="${firstName != null}" th:text="${firstName}"></span>
+										<span th:unless="${firstName != null}"
+											th:text="${#authentication.principal.attributes.given_name}"></span>
+
+									</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Email</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">
+										<span th:if="${email != null}" th:text="${email}"></span> <span
+											th:unless="${email != null}"
+											th:text="${#authentication.principal.attributes.email}"></span>
+
+									</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Balance</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">
+										<span th:if="${balance != null}" th:text="${balance}"></span>
+										<span th:unless="${balance != null}" th:text="${0}"></span>
+
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Footer -->
+	<footer class="text-center fixed-bottom gradRbTop">
+		<!-- Copyright -->
+		<div class="text-center p-1"
+			style="background-color: rgba(0, 0, 0, 0.2);">© 2023 Copyright
+			: Pay My Buddy</div>
+	</footer>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Custom JS -->
+	<script type="" src=""></script>
+</body>
+</html>
