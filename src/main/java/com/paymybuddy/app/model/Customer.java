@@ -1,7 +1,7 @@
 package com.paymybuddy.app.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +43,13 @@ public class Customer {
 	private String password;
 
 	@Column(name = "balance")
-	private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
-	@Column(name = "creation_date")
-	private Date creation_date;
+    @Column(name = "creation_date")
+    private LocalDateTime creation_date = LocalDateTime.now(); // Default value using LocalDateTime
 
-	@Column(name = "role")
-	private String role;
+    @Column(name = "role")
+    private String role = "user";
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id")

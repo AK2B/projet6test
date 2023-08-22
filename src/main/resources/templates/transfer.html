@@ -51,23 +51,24 @@
 		<section>
 			<h3>
 				Send Money
-				<button class="retour bg-info rounded btn btn-link" type="button" data-toggle="collapse"
-				data-target="#relationList" aria-expanded="false"
-				aria-controls="relationList">Add Connection</button>
+				<button class="retour bg-info rounded btn btn-link" type="button"
+					data-toggle="collapse" data-target="#relationList"
+					aria-expanded="false" aria-controls="relationList">Add
+					Connection</button>
 			</h3>
 			<div id="relationList" class="collapse">
-			<form class="retour " action="/add-relation" method="post">
-				<label for="email"></label> <input
-					placeholder="Enter Email of the Friend" type="email"
-					id="friendEmail" name="friendEmail" required>
+				<form class="retour " action="/add-relation" method="post">
+					<label for="email"></label> <input
+						placeholder="Enter Email of the Friend" type="email"
+						id="friendEmail" name="friendEmail" required>
 
-				<!-- Other fields for Relation if needed -->
+					<!-- Other fields for Relation if needed -->
 
-				<button type="submit">Add Relation</button>
-			</form>
-			<br>
+					<button type="submit">Add Relation</button>
+				</form>
+				<br>
 
-			
+
 				<div class="list-group">
 					<div th:each="relation : ${relations}" class="list-group-item">
 						<p class="mb-0">
@@ -81,7 +82,13 @@
 			<div th:if="${relations.isEmpty()}">
 				<p>No relations found for the current user.</p>
 			</div>
+			<div th:if="${param.successMessage}" class="success-message">
+        <p th:text="${param.successMessage}"></p>
+    </div>
 
+			<div th:unless="${success}" class="error-message">
+				<p th:text="${message}"></p>
+			</div>
 			<div class="py-3 my-5" style="background-color: #eee;">
 				<form action="/transactions/create" method="post">
 					<span class="d-flex justify-content-center"> <input
@@ -131,8 +138,10 @@
 
 	</main>
 	<!-- Inclure les scripts jQuery et Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 </body>
 </html>

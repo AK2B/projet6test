@@ -4,10 +4,9 @@ import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
@@ -16,8 +15,8 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,8 +32,8 @@ public class LoginController {
 	CustomerRepository customerRepository;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-
+	PasswordEncoder passwordEncoder;
+	
 	private OAuth2AuthorizedClientService authorizedClientService = null;
 
 	public LoginController(OAuth2AuthorizedClientService authorizedClientService) {
@@ -118,7 +117,22 @@ public class LoginController {
 		}
 	
 	@PostMapping("/sign")
-	public ResponseEntity<String> registerUser(@RequestBody Customer customer) {
+	public String processRegister(@ModelAttribute("customer") Customer customer) {
+	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    String encodedPassword = passwordEncoder.encode(customer.getPassword());
+	    customer.setPassword(encodedPassword);
+
+	    customerRepository.save(customer);
+
+	    return "home";
+	}
+
+	
+	
+	
+	
+	
+	/*public ResponseEntity<String> registerUser(@RequestBody Customer customer) {
 		Customer savedCustomer = null;
 		ResponseEntity<String> response = null;
 		try {
@@ -134,5 +148,5 @@ public class LoginController {
 					.body("An exception occured due to" + ex.getMessage());
 		}
 		return response;
-	}
+	}*/
 }

@@ -49,31 +49,27 @@
 					<div class="card bg-light" style="border-radius: 1rem;">
 						<div class="card-body p-5 text-center">
 
-							<form th:action="@{/sign}" method="post" class="mb-md-5 mt-md-4 pb-5">
-
+							<form th:action="@{/sign}" th:object="${customer}" method="post"
+								class="mb-md-5 mt-md-4 pb-5">
 								<h2
 									class="fw-bold mb-3 text-uppercase rounded pmbColor text-white p-3">Pay
 									My Buddy</h2>
-
 								<h4>Sign in</h4>
-
 								<div class="form-row mb-4">
 									<div class="col">
 										<!-- Last name -->
-										<input type="text" name="last_name"
-											class="form-control my-4" placeholder="Last name">
+										<input type="text"
+											class="form-control my-4" name="last_name" placeholder="Last name">
 									</div>
 									<div class="col">
 										<!-- First name -->
-										<input type="text" name="first_name"
-											class="form-control" placeholder="First name">
+										<input type="text" 
+											class="form-control" name="first_name" placeholder="First name">
 									</div>
 								</div>
-
 								<!-- E-mail -->
 								<input type="email" name="email"
 									class="form-control mb-4" placeholder="E-mail">
-
 								<!-- Password -->
 								<input type="password" name="password"
 									class="form-control" placeholder="Password"
@@ -81,15 +77,11 @@
 								<div id="defaultRegisterFormPasswordHelpBlock"
 									class="form-text text-muted my-2">At least 8 characters
 									and 1 digit</div>
-
-								
 								<!-- Sign up button -->
 								<button class="btn btn-info my-3 w-100 btn-block" type="submit">Sign
 									in</button>
-
 								<!-- Social register -->
 								<p>or sign up with:</p>
-
 								<a href="#" class="mx-2" role="button"><i
 									class="fab fa-facebook-f light-blue-text"></i></a> <a href="#"
 									class="mx-2" role="button"><i
@@ -98,14 +90,13 @@
 									class="fab fa-linkedin-in light-blue-text"></i></a> <a href="#"
 									class="mx-2" role="button"><i
 									class="fab fa-github light-blue-text"></i></a>
-
 								<hr>
-
 								<!-- Terms of service -->
 								<p>
 									By clicking <em>Sign up</em> you agree to our <a href=""
 										target="_blank">terms of service</a>
 							</form>
+
 							<!-- Default form register -->
 						</div>
 					</div>
