@@ -1,4 +1,4 @@
-package com.paymybuddy.app.dal;
+package com.paymybuddy.app.dao;
 
 import java.util.List;
 
@@ -13,5 +13,9 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 	List<Customer> findAllByEmail(String email);
 	
 	Customer findByEmail(String email);
+
+	Customer findCustomerByCustomerId(int customerId);
+
+	Customer findById(int customerId);
 	
 }

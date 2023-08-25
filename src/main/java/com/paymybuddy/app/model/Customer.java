@@ -28,13 +28,13 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	@GenericGenerator(name = "native", strategy = "native")
 	@Column(name = "customer_id")
-	private int customer_id;
+	private int customerId;
 
 	@Column(name = "last_name")
-	private String last_name;
+	private String lastName;
 
 	@Column(name = "first_name")
-	private String first_name;
+	private String firstName;
 
 	@Column(name = "email")
 	private String email;
@@ -52,11 +52,11 @@ public class Customer {
     private String role = "user";
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@JoinColumn(name = "customer_id")
+	@JoinColumn(name = "customerId")
 	List<Relation> relations = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@JoinColumn(name = "customer_id")
+	@JoinColumn(name = "customerId")
 	List<Transaction> transactions = new ArrayList<>();
 
 	public List<Relation> getrelation() {

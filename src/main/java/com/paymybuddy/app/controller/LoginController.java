@@ -15,17 +15,17 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.paymybuddy.app.dal.CustomerRepository;
+import com.paymybuddy.app.dao.CustomerRepository;
 import com.paymybuddy.app.model.Customer;
 
 import jakarta.annotation.security.RolesAllowed;
 
-@RestController
+@Controller
 public class LoginController {
 
 	@Autowired
@@ -116,37 +116,28 @@ public class LoginController {
 		   return null;
 		}
 	
+	
+	
 	@PostMapping("/sign")
 	public String processRegister(@ModelAttribute("customer") Customer customer) {
-	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	    String encodedPassword = passwordEncoder.encode(customer.getPassword());
-	    customer.setPassword(encodedPassword);
 
-	    customerRepository.save(customer);
-
-	    return "home";
-	}
-
-	
-	
-	
-	
-	
-	/*public ResponseEntity<String> registerUser(@RequestBody Customer customer) {
 		Customer savedCustomer = null;
-		ResponseEntity<String> response = null;
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
 		try {
-			String hashPassword = passwordEncoder.encode(customer.getPassword());
-			customer.setPassword(hashPassword);
+			String encodedPassword = passwordEncoder.encode(customer.getPassword());
+			customer.setPassword(encodedPassword);
+
 			savedCustomer = customerRepository.save(customer);
-			if (savedCustomer.getCustomer_id() > 0) {
-				response = ResponseEntity.status(HttpStatus.CREATED)
-						.body("Given user details are successfully registered");
+			
+			if (savedCustomer.getCustomerId() > 0) {
+				return "redirect:/register?successRegistered";
 			}
+			return "redirect:/register?registeredFail";
 		} catch (Exception ex) {
-			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An exception occured due to" + ex.getMessage());
+			return "redirect:/register?exception";
 		}
-		return response;
-	}*/
+	}
+	
+	
 }

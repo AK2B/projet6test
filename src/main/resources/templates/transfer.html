@@ -51,13 +51,15 @@
 		<section>
 			<h3>
 				Send Money
-				<button class="retour bg-info rounded btn btn-link" type="button"
+				<button class="retour bg-info rounded btn text-white" type="button"
 					data-toggle="collapse" data-target="#relationList"
-					aria-expanded="false" aria-controls="relationList">Add
-					Connection</button>
+					aria-expanded="false" aria-controls="relationList">
+					<strong>Add Connection</strong>
+				</button>
 			</h3>
 			<div id="relationList" class="collapse">
-				<form class="retour " action="/add-relation" method="post">
+
+				<form class="retour mb-2" action="/add-relation" method="post">
 					<label for="email"></label> <input
 						placeholder="Enter Email of the Friend" type="email"
 						id="friendEmail" name="friendEmail" required>
@@ -66,31 +68,62 @@
 
 					<button type="submit">Add Relation</button>
 				</form>
-				<br>
-
+				<br> <br>
 
 				<div class="list-group">
-					<div th:each="relation : ${relations}" class="list-group-item">
+					<div th:each="friendOfEmail : ${friendOfEmails}"
+						class="list-group-item">
 						<p class="mb-0">
-							<strong>Relation ID:</strong> <span
-								th:text="${relation.friendId}"></span>
+							<strong><span th:text="${friendOfEmail}"></span></strong>
 						</p>
 					</div>
 				</div>
 			</div>
-
-			<div th:if="${relations.isEmpty()}">
+			<div th:if="${friendOfEmails.isEmpty()}">
 				<p>No relations found for the current user.</p>
 			</div>
-			<div th:if="${param.successMessage}" class="success-message">
-        <p th:text="${param.successMessage}"></p>
-    </div>
+			<div th:if="${param.friendNotFound}"
+					class="d-flex justify-content-center text-white bg-warning rounded">
+					<p class="m-1">
+						<strong>Friend not found.</strong>
+					</p>
+				</div>
+				<div th:if="${param.alreadyExist}"
+					class="d-flex justify-content-center text-white bg-danger rounded">
+					<p class="m-1">
+						<strong>Relation already exist</strong>
+					</p>
+				</div>
+				<div th:if="${param.friendSuccess}"
+					class="d-flex justify-content-center text-white pmbColor rounded">
+					<p class="m-1">
+						<strong>Relation success.</strong>
+					</p>
+				</div>
+			<div class="pb-3 my-5" style="background-color: #eee;">
 
-			<div th:unless="${success}" class="error-message">
-				<p th:text="${message}"></p>
-			</div>
-			<div class="py-3 my-5" style="background-color: #eee;">
-				<form action="/transactions/create" method="post">
+
+				<div th:if="${param.notFound}"
+					class="d-flex justify-content-center text-white bg-warning">
+					<p class="m-1">
+						<strong>Recipient not found.</strong>
+					</p>
+				</div>
+				<div th:if="${param.fail}"
+					class="d-flex justify-content-center text-white bg-danger">
+					<p class="m-1">
+						<strong>Transaction failed.</strong>
+					</p>
+				</div>
+				<div th:if="${param.success}"
+					class="d-flex justify-content-center text-white pmbColor">
+					<p class="m-1">
+						<strong>Transaction success.</strong>
+					</p>
+				</div>
+				<form class="pt-5" action="/transactions/create" method="post">
+
+
 					<span class="d-flex justify-content-center"> <input
 						type="email" id="recipientEmail" name="recipientEmail"
 						placeholder="Search user by email" required /> <input
@@ -114,22 +147,29 @@
 		<section>
 
 			<h3>My Transactions</h3>
-			<div class="py-5" style="background-color: #eee;">
+			<div>
 				<table class="table table-bordered">
-					<thead>
+					<thead class="table-success">
 						<tr>
-							<th>Sender ID</th>
-							<th>Amount</th>
-							<th>Status</th>
+							<th>Connections</th>
+							<th>Debit</th>
+							<th>Credit</th>
 							<th>Transaction Date</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="transaction : ${transactions}">
-							<td th:text="${transaction.senderId}"></td>
-							<td th:text="${transaction.amount}"></td>
+							<td
+								th:with="displayId=${transaction.senderId != userId ? transaction.senderId : transaction.recipientId}"
+								th:text="${customerRepository.findById(displayId)?.lastName} + ' ' + ${customerRepository.findById(displayId)?.firstName}"></td>
+							<td
+								th:text="${transaction.senderId == userId ? transaction.amount : ''}"></td>
+							<td
+								th:text="${transaction.recipientId == userId ? transaction.amount : ''}"></td>
+							<td
+								th:text="${#dates.format(transaction.transaction_date, 'yyyy-MM-dd')}"></td>
 							<td th:text="${transaction.status}"></td>
-							<td th:text="${transaction.transaction_date}"></td>
 						</tr>
 					</tbody>
 				</table>

@@ -1,4 +1,4 @@
-package com.paymybuddy.app.dal;
+package com.paymybuddy.app.dao;
 
 import java.util.List;
 
@@ -14,5 +14,6 @@ public interface RelationRepository extends JpaRepository<Relation, Integer>{
 
 	 boolean existsByCustomerRelationIdAndFriendId(int customerRelationId, int friendId);
 
+	
 	
 }

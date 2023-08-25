@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.paymybuddy.app.dal.CustomerRepository;
-import com.paymybuddy.app.dal.TransactionRepository;
+import com.paymybuddy.app.dao.CustomerRepository;
+import com.paymybuddy.app.dao.TransactionRepository;
 import com.paymybuddy.app.model.Customer;
 import com.paymybuddy.app.model.Transaction;
 
@@ -53,8 +53,8 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setTransaction_date(new Timestamp(System.currentTimeMillis()));
         transaction.setStatus("Completed");
-        transaction.setSenderId(sender.getCustomer_id());
-        transaction.setRecipientId(recipient.getCustomer_id());
+        transaction.setSenderId(sender.getCustomerId());
+        transaction.setRecipientId(recipient.getCustomerId());
 
         transactionRepository.save(transaction);
         customerRepository.save(sender);

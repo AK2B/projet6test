@@ -21,7 +21,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authorizeHttpRequests((requests) -> requests
-            .requestMatchers("/", "/home","/login/oauth2", "/contact", "/register", "/sign", "/css/**", "/favIcon.png").permitAll()
+            .requestMatchers("/", "/home", "/login/oauth2", "/contact", "/register", "/js/**", "/sign", "/css/**", "/favIcon.png").permitAll()
             .requestMatchers("/profile", "/transfer","/transactions/create", "/add-relation").authenticated()
             .anyRequest().permitAll())
             .formLogin((form) -> form.loginPage("/login").permitAll())

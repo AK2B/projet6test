@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.paymybuddy.app.dal.CustomerRepository;
+import com.paymybuddy.app.dao.CustomerRepository;
 import com.paymybuddy.app.model.Customer;
 
 @Service

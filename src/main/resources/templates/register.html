@@ -31,12 +31,9 @@
 					<li class="nav-item"><a class="nav-link active" href="home">Home
 							<span class="visually-hidden">(current)</span>
 					</a></li>
-
 					<li class="nav-item"><a class="nav-link" href="contact">Contact</a>
 					</li>
-
 				</ul>
-
 			</div>
 		</div>
 	</nav>
@@ -55,24 +52,44 @@
 									class="fw-bold mb-3 text-uppercase rounded pmbColor text-white p-3">Pay
 									My Buddy</h2>
 								<h4>Sign in</h4>
+								<div th:if="${param.exception}"
+										class="d-flex justify-content-center text-white bg-warning rounded">
+										<p class="m-1">
+											<strong>exception.</strong>
+										</p>
+									</div>
+									<div th:if="${param.registeredFail}"
+										class="d-flex justify-content-center text-white bg-danger rounded">
+										<p class="m-1">
+											<strong>Registration failed.</strong>
+										</p>
+									</div>
+									<div th:if="${param.successRegistered}"
+										class="d-flex justify-content-center text-white pmbColor rounded">
+										<p class="m-1">
+											<strong>Registration success.</strong>
+										</p>
+									</div>
 								<div class="form-row mb-4">
+
+									
 									<div class="col">
 										<!-- Last name -->
-										<input type="text"
-											class="form-control my-4" name="last_name" placeholder="Last name">
+										<input type="text" class="form-control my-4" name="lastName"
+											placeholder="Last name">
 									</div>
 									<div class="col">
 										<!-- First name -->
-										<input type="text" 
-											class="form-control" name="first_name" placeholder="First name">
+										<input type="text" class="form-control" name="firstName"
+											placeholder="First name">
 									</div>
 								</div>
 								<!-- E-mail -->
-								<input type="email" name="email"
-									class="form-control mb-4" placeholder="E-mail">
+								<input type="email" name="email" class="form-control mb-4"
+									placeholder="E-mail">
 								<!-- Password -->
-								<input type="password" name="password"
-									class="form-control" placeholder="Password"
+								<input type="password" name="password" class="form-control"
+									placeholder="Password"
 									aria-describedby="defaultRegisterFormPasswordHelpBlock">
 								<div id="defaultRegisterFormPasswordHelpBlock"
 									class="form-text text-muted my-2">At least 8 characters

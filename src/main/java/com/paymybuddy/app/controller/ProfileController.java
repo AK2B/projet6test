@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.paymybuddy.app.dal.CustomerRepository;
+import com.paymybuddy.app.dao.CustomerRepository;
 import com.paymybuddy.app.model.Customer;
 
 @Controller
@@ -32,8 +32,8 @@ public class ProfileController {
             // Load data from your database
             Customer customerInfo = customerRepository.findByEmail(email);
             
-            model.addAttribute("lastName", customerInfo.getLast_name());
-            model.addAttribute("firstName", customerInfo.getFirst_name());
+            model.addAttribute("lastName", customerInfo.getLastName());
+            model.addAttribute("firstName", customerInfo.getFirstName());
             model.addAttribute("email", customerInfo.getEmail());
             model.addAttribute("balance", customerInfo.getBalance());
         }
