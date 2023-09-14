@@ -14,6 +14,7 @@ import com.paymybuddy.app.dao.CustomerRepository;
 import com.paymybuddy.app.model.Customer;
 import com.paymybuddy.app.service.TransactionService;
 
+
 @Controller
 public class TransactionController {
 
@@ -35,6 +36,7 @@ public class TransactionController {
             User user = (User) authentication.getPrincipal();
             Customer sender = customerRepository.findByEmail(user.getUsername());
 
+            
             // Create the transaction using sender and recipient
             transactionService.createTransaction(amount, sender, recipient);
            

@@ -2,6 +2,7 @@ package com.paymybuddy.app.service;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +74,31 @@ public class TransactionService {
     }
     
     public List<Transaction> getTransactionsForUser(int userId) {
-        // Récupérer les transactions pour l'utilisateur donné
         return transactionRepository.findBySenderIdOrRecipientId(userId, userId);
+    }
+    
+    public Iterable<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
+    
+    public List<String> getCustomerNameForEachTransfer(int userId){
+    	
+    	List<Transaction> transactions = getTransactionsForUser(userId);
+    	List<String> customerNames = new ArrayList<>();
+		for (Transaction transaction : transactions) {
+			int displayId = transaction.getSenderId() != userId ? transaction.getSenderId()
+					: transaction.getRecipientId();
+
+			Customer customerFind = customerRepository.findById(displayId);
+
+			String customerName = "";
+			if (customerFind != null) {
+				customerName = customerFind.getLastName() + " " + customerFind.getFirstName();
+			}
+
+			customerNames.add(customerName);
+		}
+		return customerNames;
     }
 
 }

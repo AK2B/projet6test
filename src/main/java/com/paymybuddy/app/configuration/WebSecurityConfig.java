@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -18,23 +19,22 @@ public class WebSecurityConfig {
 	}
 
 	@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-        .authorizeHttpRequests((requests) -> requests
-            .requestMatchers("/", "/home", "/login/oauth2", "/contact", "/register", "/js/**", "/sign", "/css/**", "/favIcon.png").permitAll()
-            .requestMatchers("/profile", "/transfer","/transactions/create", "/add-relation").authenticated()
-            .anyRequest().permitAll())
-            .formLogin((form) -> form.loginPage("/login").permitAll())
-            .logout((logout) -> logout.permitAll())
-            .oauth2Login(oauth2 -> oauth2
-    			    .loginPage("/login/oauth2"))
-            
-            ;
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.build();
-    }
+		http.authorizeHttpRequests((requests) -> requests
 
-	
-	 
-	
+				.requestMatchers("/", "/home", "/login/oauth2", "/contact", "/register", "/js/**", "/sign", "/css/**",
+						"/favIcon.png")
+				.permitAll().requestMatchers("/profile", "/transfer", "/transactions/create", "/add-relation")
+				.authenticated().requestMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().permitAll())
+
+				.formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/transfer").permitAll())
+				.logout((logout) -> logout.permitAll()).oauth2Login(oauth2 -> oauth2.loginPage("/login/oauth2"));
+
+		 http
+         .csrf()
+         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+		return http.build();
+	}
+
 }

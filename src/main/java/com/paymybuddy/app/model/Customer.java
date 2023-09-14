@@ -17,9 +17,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -49,7 +51,7 @@ public class Customer {
     private LocalDateTime creation_date = LocalDateTime.now(); // Default value using LocalDateTime
 
     @Column(name = "role")
-    private String role = "user";
+    private String role = "USER";
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customerId")
@@ -65,6 +67,11 @@ public class Customer {
 
 	public List<Transaction> getTransactions() {
 		return transactions;
+	}
+
+	public void setRelations(int i, Customer user, Customer friend1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

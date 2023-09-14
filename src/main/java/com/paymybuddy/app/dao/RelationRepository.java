@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.paymybuddy.app.model.Customer;
 import com.paymybuddy.app.model.Relation;
 
 @Repository
-public interface RelationRepository extends JpaRepository<Relation, Integer>{
+public interface RelationRepository extends JpaRepository<Relation, Integer> {
 
-	List<Relation> findByCustomerRelationId(int customerRelationId);
+    List<Relation> findByCustomerRelation(Customer customerRelation);
 
-	 boolean existsByCustomerRelationIdAndFriendId(int customerRelationId, int friendId);
+    boolean existsByCustomerRelationAndFriend(Customer customerRelation, Customer friend);
 
-	
 	
 }

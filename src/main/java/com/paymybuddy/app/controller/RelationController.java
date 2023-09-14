@@ -8,47 +8,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.paymybuddy.app.dao.CustomerRepository;
-import com.paymybuddy.app.dao.RelationRepository;
-import com.paymybuddy.app.model.Customer;
-import com.paymybuddy.app.model.Relation;
+import com.paymybuddy.app.service.RelationService;
 
 @Controller
 public class RelationController {
 
     @Autowired
-    private CustomerRepository customerRepository;
-    
-    @Autowired
-	private RelationRepository relationRepository;
+	private RelationService relationService;
 
     @PostMapping("/add-relation")
     public String addRelation(@RequestParam("friendEmail") String friendEmail) {
-        // Retrieve the authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        Customer customerRelationId = customerRepository.findByEmail(user.getUsername());
+        String userEmail = user.getUsername();
 
-        // Fetch the friend user by email
-        Customer friend = customerRepository.findByEmail(friendEmail);
+        String result = relationService.addRelation(userEmail, friendEmail);
 
-        if (friend == null) {       
+        if ("friendNotFound".equals(result)) {
             return "redirect:/transfer?friendNotFound";
-        }
-        // Check if the relation already exists
-        if (relationRepository.existsByCustomerRelationIdAndFriendId(customerRelationId.getCustomerId(), friend.getCustomerId())) {
+        } else if ("alreadyExist".equals(result)) {
             return "redirect:/transfer?alreadyExist";
+        } else if ("friendSuccess".equals(result)) {
+            return "redirect:/transfer?friendSuccess";
+        } else {
+            // Handle other cases or errors here
+            return "redirect:/transfer?error";
         }
-
-        // Create a new Relation instance
-        Relation relation = new Relation();
-        relation.setCustomerRelationId(customerRelationId.getCustomerId());  // Set the authenticated user
-        relation.setFriendId(friend.getCustomerId());   // Set the friend user
-
-        // Save the relation
-        relationRepository.save(relation);
-
-        return "redirect:/transfer?friendSuccess";
     }
-
 }

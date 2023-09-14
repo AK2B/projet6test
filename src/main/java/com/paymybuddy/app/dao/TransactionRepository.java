@@ -10,6 +10,6 @@ import com.paymybuddy.app.model.Transaction;
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
 
-    List<Transaction> findBySenderIdOrRecipientId(int senderId, int recipientId);
+	List<Transaction> findBySenderIdOrRecipientId(int senderId, int recipientId);
 
 }

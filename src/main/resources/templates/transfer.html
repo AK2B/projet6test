@@ -59,13 +59,11 @@
 			</h3>
 			<div id="relationList" class="collapse">
 
-				<form class="retour mb-2" action="/add-relation" method="post">
+				<form th:action="@{/add-relation}" class="retour mb-2" method="post">
 					<label for="email"></label> <input
 						placeholder="Enter Email of the Friend" type="email"
-						id="friendEmail" name="friendEmail" required>
-
-					<!-- Other fields for Relation if needed -->
-
+						id="friendEmail" name="friendEmail" required/> 
+						
 					<button type="submit">Add Relation</button>
 				</form>
 				<br> <br>
@@ -83,23 +81,23 @@
 				<p>No relations found for the current user.</p>
 			</div>
 			<div th:if="${param.friendNotFound}"
-					class="d-flex justify-content-center text-white bg-warning rounded">
-					<p class="m-1">
-						<strong>Friend not found.</strong>
-					</p>
-				</div>
-				<div th:if="${param.alreadyExist}"
-					class="d-flex justify-content-center text-white bg-danger rounded">
-					<p class="m-1">
-						<strong>Relation already exist</strong>
-					</p>
-				</div>
-				<div th:if="${param.friendSuccess}"
-					class="d-flex justify-content-center text-white pmbColor rounded">
-					<p class="m-1">
-						<strong>Relation success.</strong>
-					</p>
-				</div>
+				class="d-flex justify-content-center text-white bg-warning rounded">
+				<p class="m-1">
+					<strong>Friend not found.</strong>
+				</p>
+			</div>
+			<div th:if="${param.alreadyExist}"
+				class="d-flex justify-content-center text-white bg-danger rounded">
+				<p class="m-1">
+					<strong>Relation already exist</strong>
+				</p>
+			</div>
+			<div th:if="${param.friendSuccess}"
+				class="d-flex justify-content-center text-white pmbColor rounded">
+				<p class="m-1">
+					<strong>Relation success.</strong>
+				</p>
+			</div>
 			<div class="pb-3 my-5" style="background-color: #eee;">
 
 
@@ -121,7 +119,7 @@
 						<strong>Transaction success.</strong>
 					</p>
 				</div>
-				<form class="pt-5" action="/transactions/create" method="post">
+				<form th:action="@{/transactions/create}" class="pt-5" method="post">
 
 
 					<span class="d-flex justify-content-center"> <input
@@ -159,10 +157,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="transaction : ${transactions}">
-							<td
-								th:with="displayId=${transaction.senderId != userId ? transaction.senderId : transaction.recipientId}"
-								th:text="${customerRepository.findById(displayId)?.lastName} + ' ' + ${customerRepository.findById(displayId)?.firstName}"></td>
+						<tr th:each="transaction, status : ${transactions}">
+							<td th:text="${customerNames[__${status.index}__]}"></td>
 							<td
 								th:text="${transaction.senderId == userId ? transaction.amount : ''}"></td>
 							<td

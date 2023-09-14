@@ -7,10 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "relation")
 public class Relation {
@@ -21,19 +25,22 @@ public class Relation {
     @Column(name = "relation_id")
     private int relation_id;
 
-    @Column(name = "customer_relation_id")
-    private int customerRelationId;
+	@OneToOne
+    @JoinColumn(name = "customer_relation_id", referencedColumnName = "customer_id")
+    private Customer customerRelation;
 
-    @Column(name = "friend_id")
-    private int friendId;
+    @OneToOne
+    @JoinColumn(name = "friend_id", referencedColumnName = "customer_id")
+    private Customer friend; 
+
 
     public Relation() {
     }
 
-    public Relation(int relation_id, int customerRelationId, int friendId) {
+    public Relation(int relation_id, Customer customerRelation, Customer friend) {
         super();
     	this.relation_id = relation_id;
-        this.customerRelationId = customerRelationId;
-        this.friendId = friendId;
+        this.customerRelation = customerRelation;
+        this.friend = friend;
     }
 }

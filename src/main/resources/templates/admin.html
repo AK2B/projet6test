@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay My Buddy - <?= $title ?></title>
+<link rel="icon" type="image/png" th:href="@{favIcon.png}" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+		<div class="container-fluid">
+			<a class="navbar-brand pmbColor p-3 me-auto text-white rounded"
+				href="home">Pay My Buddy</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+				aria-controls="navbarColor03" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-flex flex-row-reverse"
+				id="navbarColor03">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" href="home">Home
+							<span class="visually-hidden">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="transfer">Transfer</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="profile">Profile</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="contact">Contact</a>
+					</li>
+
+				</ul>
+
+			</div>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Log off" />
+			</form>
+		</div>
+	</nav>
+	<main class="container mt-3">
+
+		<section>
+			<h3>My Transactions</h3>
+			<div>
+				<table class="table table-bordered">
+					<thead class="table-success">
+						<tr>
+							<th>ID</th>
+							<th>Amount</th>
+							<th>Transaction Date</th>
+							<th>Status</th>
+							<th>Recipient ID</th>
+							<th>Sender ID</th>
+						</tr>
+						</thead>
+						<tr th:each="transaction : ${transactions}">
+							<td th:text="${transaction.id_transaction}"></td>
+							<td th:text="${transaction.amount}"></td>
+							<td th:text="${transaction.transaction_date}"></td>
+							<td th:text="${transaction.status}"></td>
+							<td th:text="${transaction.recipientId}"></td>
+							<td th:text="${transaction.senderId}"></td>
+						</tr>
+				</table>
+			</div>
+		</section>
+
+	</main>
+	<!-- Inclure les scripts jQuery et Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+</body>
+</html>

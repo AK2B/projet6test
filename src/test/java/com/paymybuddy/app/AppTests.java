@@ -24,33 +24,30 @@ import org.springframework.web.context.WebApplicationContext;
 @AutoConfigureMockMvc
 public class AppTests {
 
-	 @Autowired
-	   private MockMvc mvc;
-	   
-	   @Autowired
-	   private WebApplicationContext context;
-	   
-	   
-	   @BeforeEach
-	   public void setup() {
-	      mvc = MockMvcBuilders
-	      .webAppContextSetup(context)
-	      .apply(SecurityMockMvcConfigurers.springSecurity())
-	      .build();
-	   }
-	   
-	   @Test
-	   public void shouldReturnDefaultMessage() throws Exception {
-	   mvc.perform(get("/login")).andDo(print()).andExpect(status().isOk());
-	   }
-	   
-	   @Test
-	   public void userLoginTest() throws Exception {
-	      mvc.perform(formLogin("/login").user("john.doe@example.com").password("motdepasse1")).andExpect(authenticated());
-	   }
-	   
-	   @Test
-	   public void userLoginFailed() throws Exception {
-	   mvc.perform(formLogin("/login").user("springuser").password("wrongpassword")).andExpect(unauthenticated());
-	   }
+	@Autowired
+	private MockMvc mvc;
+
+	@Autowired
+	private WebApplicationContext context;
+
+	@BeforeEach
+	public void setup() {
+		mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
+	}
+
+	@Test
+	public void shouldReturnDefaultMessage() throws Exception {
+		mvc.perform(get("/login")).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	public void userLoginTest() throws Exception {
+		mvc.perform(formLogin("/login").user("john.doe@example.com").password("motdepasse1"))
+				.andExpect(authenticated());
+	}
+
+	@Test
+	public void userLoginFailed() throws Exception {
+		mvc.perform(formLogin("/login").user("springuser").password("wrongpassword")).andExpect(unauthenticated());
+	}
 }
