@@ -12,6 +12,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a transaction entity with information such as amount, date, status, sender, and recipient.
+ *
+ * @Entity
+ * @Table(name = "transaction")
+ */
 @Getter
 @Setter
 @Entity

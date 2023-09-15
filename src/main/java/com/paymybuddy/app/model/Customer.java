@@ -20,6 +20,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a customer entity with information such as name, email, balance, and transactions.
+ *
+ * @Entity
+ * @Table(name = "customer")
+ */
 @Getter
 @Setter
 @Entity

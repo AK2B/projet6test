@@ -37,15 +37,17 @@ public class ProfileController {
 			// Load data from your database
 			Customer customerInfo = customerRepository.findByEmail(email);
 
-			HttpSession session = request.getSession();
-			session.setAttribute("email", customerInfo.getEmail());
-			session.setAttribute("lastName", customerInfo.getLastName());
-			session.setAttribute("firstName", customerInfo.getFirstName());
+			if (customerInfo != null) {
+			    HttpSession session = request.getSession();
+			    session.setAttribute("email", customerInfo.getEmail());
+			    session.setAttribute("lastName", customerInfo.getLastName());
+			    session.setAttribute("firstName", customerInfo.getFirstName());
 
-			model.addAttribute("lastName", session.getAttribute("lastName"));
-			model.addAttribute("firstName", session.getAttribute("firstName"));
-			model.addAttribute("email", session.getAttribute("email"));
-			model.addAttribute("balance", customerInfo.getBalance());
+			    model.addAttribute("lastName", session.getAttribute("lastName"));
+			    model.addAttribute("firstName", session.getAttribute("firstName"));
+			    model.addAttribute("email", session.getAttribute("email"));
+			    model.addAttribute("balance", customerInfo.getBalance());
+			}
 		}
 
 		return "profile";

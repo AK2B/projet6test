@@ -36,10 +36,24 @@ public class AppTests {
 	}
 
 	@Test
+	public void shouldReturnHome() throws Exception {
+		mvc.perform(get("/home")).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	public void shouldReturnRegister() throws Exception {
+		mvc.perform(get("/register")).andDo(print()).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void shouldReturnContact() throws Exception {
+		mvc.perform(get("/contact")).andDo(print()).andExpect(status().isOk());
+	}
+	
+	@Test
 	public void shouldReturnDefaultMessage() throws Exception {
 		mvc.perform(get("/login")).andDo(print()).andExpect(status().isOk());
 	}
-
 	@Test
 	public void userLoginTest() throws Exception {
 		mvc.perform(formLogin("/login").user("john.doe@example.com").password("motdepasse1"))

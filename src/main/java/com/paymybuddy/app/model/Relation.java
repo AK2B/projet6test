@@ -13,6 +13,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a relation entity between customers.
+ *
+ * @Entity
+ * @Table(name = "relation")
+ */
 @Getter
 @Setter
 @Entity

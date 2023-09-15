@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -102,6 +101,7 @@ public class TransactionServiceTest {
         assertTrue(result.contains(transaction2));
     }
 
+    
     @Test
     public void testGetAllTransactions() {
         // Créez une liste factice de transactions
