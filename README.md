@@ -4,11 +4,11 @@
 ----
 
 ### Le diagramme de classe UML
-![uml](../resources/image/UML.JPG)
+![uml](src/main/resources/image/UML.JPG)
 
 
 ### Le modèle physique de données
-![mld](../image/mld.jpg)
+![mld](src/main/resources/image/mld.jpg)
 
 
 ### Sql
